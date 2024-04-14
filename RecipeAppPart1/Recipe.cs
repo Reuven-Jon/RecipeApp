@@ -50,9 +50,16 @@ namespace RecipeAppPart1
                 Console.WriteLine("Recipe details entered successfully.");
             }
 
-            public void DisplayRecipe()
+        public void DisplayRecipe()
+        {
+            if (name == null || ingredients == null || steps == null)
             {
-                Console.WriteLine($"Recipe Name: {name}"); //Display recipe name
+                Console.WriteLine("No recipe details found. Please enter recipe details first.");
+                EnterDetails(); // Prompt the user to enter recipe details
+            }
+            else
+            {
+                Console.WriteLine($"Recipe Name: {name}"); // Display recipe name
                 Console.WriteLine("Ingredients:");
                 foreach (var ingredient in ingredients)
                 {
@@ -64,8 +71,9 @@ namespace RecipeAppPart1
                     Console.WriteLine($"- {step}"); // Show the steps
                 }
             }
-
-            public void ScaleRecipe()
+        }
+        
+        public void ScaleRecipe()
             {
                 Console.Write("Enter scaling factor (0.5, 2, or 3): ");
                 double factor = double.Parse(Console.ReadLine()); //Read scaling factor
