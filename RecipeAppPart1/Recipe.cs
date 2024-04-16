@@ -34,6 +34,7 @@ namespace RecipeAppPart1
                     ingredients[i] = new Ingredient(ingredientName, quantity, unit); //Create and store ingredient object
                 }
 
+
                 Console.Write("Enter the number of steps: ");
                 int stepCount = int.Parse(Console.ReadLine()); //Read the number of steps
                 steps = new string[stepCount]; //Initialise the array to store steps
@@ -45,6 +46,7 @@ namespace RecipeAppPart1
 
                 Console.WriteLine("Recipe details entered successfully.");
             }
+
 
         public void DisplayRecipe()
         {
@@ -69,11 +71,11 @@ namespace RecipeAppPart1
             }
         }
         
+
         public void ScaleRecipe()
             {
                 Console.Write("Enter scaling factor (0.5, 2, or 3): ");
-                double factor = double.Parse(Console.ReadLine()); //Read scaling factor
-                                                                  // Scale ingredient quantities accordingly
+                double factor = double.Parse(Console.ReadLine()); // Scale ingredient quantities accordingly
                 foreach (var ingredient in ingredients)
                 {
                     ingredient.Quantity *= factor; //Multiply each ingredient quantity by the scaling factor
@@ -81,12 +83,14 @@ namespace RecipeAppPart1
                 Console.WriteLine("Recipe scaled successfully.");
             }
 
+        
             public void ResetQuantities()
             {
                 // Reset ingredient quantities to original values
                 // Implementation left as an exercise for the reader
                 Console.WriteLine("Quantities reset successfully.");
             }
+
 
             public void ClearData()
             {
