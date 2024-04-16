@@ -23,9 +23,9 @@ namespace RecipeAppPart1
             if (string.IsNullOrWhiteSpace(unit))
                 throw new ArgumentException("Unit cannot be empty.", nameof(unit));
 
-            Name = name; // Initialize the Name property.
-            Quantity = quantity; // Initialize the Quantity property.
-            Unit = unit; // Initialize the Unit property.
+            Name = name; // Initialize the name property.
+            Quantity = quantity; // Initialize the quantity property.
+            Unit = unit; // Initialize the unit property.
         }
 
         // Copy constructor for type-safe cloning.
