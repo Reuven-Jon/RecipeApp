@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 // Reuven-Jon Kadalie ST10271460
 
 namespace RecipeAppPart1
