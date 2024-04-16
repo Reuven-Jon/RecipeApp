@@ -15,42 +15,49 @@ class Program
 
         while (!exit)
         {
-            Console.WriteLine("1. Enter recipe details");
-            Console.WriteLine("2. Display recipe");
-            Console.WriteLine("3. Scale recipe");
-            Console.WriteLine("4. Reset quantities");
-            Console.WriteLine("5. Clear all data");
+            Console.WriteLine("\n1. Enter Recipe Details");
+            Console.WriteLine("2. Display Recipe");
+            Console.WriteLine("3. Scale Recipe");
+            Console.WriteLine("4. Reset Quantities");
+            Console.WriteLine("5. Clear Data");
             Console.WriteLine("6. Exit");
-            Console.Write("Select an option: ");
-            string choice = Console.ReadLine();
+            Console.Write("Enter your choice: ");
+            int choice = int.Parse(Console.ReadLine());
 
             switch (choice)
             {
-                case "1":
+                case 1:
                     recipe.EnterDetails();
                     break;
-                case "2":
+                case 2:
                     recipe.DisplayRecipe();
                     break;
-                case "3":
+                case 3:
                     recipe.ScaleRecipe();
                     break;
-                case "4":
+                case 4:
                     recipe.ResetQuantities();
                     break;
-                case "5":
+                case 5:
                     recipe.ClearData();
                     break;
-                case "6":
-                    exit = true;
+                case 6:
+                    Console.Write("Are you sure you want to exit? (Y/N): ");
+                    string exitChoice = Console.ReadLine().ToUpper();
+                    if (exitChoice == "Y")
+                    {
+                        exit = true;
+                        Console.WriteLine("Exiting...");
+                    }
                     break;
                 default:
-                    Console.WriteLine("Invalid option. Please try again.");
+                    Console.WriteLine("Invalid choice, please try again.");
                     break;
             }
         }
     }
+
     ////////////////////////////////////////////////////////////////////////////// 00 End Of File 00 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-   
+
