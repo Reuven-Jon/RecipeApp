@@ -1,54 +1,56 @@
 ﻿using System;
 
-// Reuven-Jon Kadalie ST10271460
-
 namespace RecipeAppPart1
 {
-    // Define a class to represent an ingredient used in a recipe
     class Ingredient : ICloneable
     {
-        // Properties to store the name, quantity, and unit of the ingredient
-        public string Name { get; private set; } // Name of the ingredient.
-        public double Quantity { get; set; } // Quantity of the ingredient.
-        public string Unit { get; private set; } // Unit of measurement for the quantity.
+        public string Name { get; private set; }
+        public double Quantity { get; set; }
+        public string Unit { get; private set; }
+        public int Calories { get; private set; }
+        public string FoodGroup { get; private set; }
 
-        // Constructor to initialize an ingredient with a name, quantity, and unit.
-        public Ingredient(string name, double quantity, string unit)
+        public Ingredient(string name, double quantity, string unit, int calories, string foodGroup)
         {
-            // Validate the input before assignment.
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Ingredient name cannot be empty.", nameof(name));
             if (quantity < 0)
                 throw new ArgumentException("Quantity cannot be negative.", nameof(quantity));
             if (string.IsNullOrWhiteSpace(unit))
                 throw new ArgumentException("Unit cannot be empty.", nameof(unit));
+            if (calories < 0)
+                throw new ArgumentException("Calories cannot be negative.", nameof(calories));
+            if (string.IsNullOrWhiteSpace(foodGroup))
+                throw new ArgumentException("Food group cannot be empty.", nameof(foodGroup));
 
-            Name = name; // Initialize the name property.
-            Quantity = quantity; // Initialize the quantity property.
-            Unit = unit; // Initialize the unit property.
+            Name = name;
+            Quantity = quantity;
+            Unit = unit;
+            Calories = calories;
+            FoodGroup = foodGroup;
         }
 
-        // Copy constructor for type-safe cloning.
         public Ingredient(Ingredient other)
         {
             Name = other.Name;
             Quantity = other.Quantity;
             Unit = other.Unit;
+            Calories = other.Calories;
+            FoodGroup = other.FoodGroup;
         }
 
-        // Method to display the ingredient in a formatted manner.
         public override string ToString()
         {
-            return $"{Quantity} {Unit} of {Name}";
+            return $"{Quantity} {Unit} of {Name} ({Calories} calories, {FoodGroup})";
         }
 
-        // Implementation of the ICloneable interface.
         public object Clone()
         {
             return new Ingredient(this);
         }
     }
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////// 00 End Of File 00 ////////////////////////////////////////////////////////////////////////////////////////////////
