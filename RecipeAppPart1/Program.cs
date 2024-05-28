@@ -6,6 +6,21 @@ class Program
 {
     delegate void DisplayRecipeDelegate(Recipe recipe);
 
+    // Method to display a recipe
+    static void DisplayRecipe(Recipe recipe)
+    {
+        recipe.DisplayRecipe();
+    }
+
+    // Method to list all recipes
+    static void ListAllRecipes(List<Recipe> recipes)
+    {
+        foreach (var recipe in recipes)
+        {
+            Console.WriteLine(recipe.Name);
+        }
+    }
+
     static void Main(string[] args)
     {
         List<Recipe> recipes = new List<Recipe>();
@@ -13,6 +28,7 @@ class Program
 
         while (!exit)
         {
+            Console.Clear();
             Console.WriteLine("\n1. Enter Recipe Details");
             Console.WriteLine("2. Display Recipe");
             Console.WriteLine("3. Scale Recipe");
@@ -21,7 +37,16 @@ class Program
             Console.WriteLine("6. List All Recipes");
             Console.WriteLine("7. Exit");
             Console.Write("Enter your choice: ");
-            int choice = int.Parse(Console.ReadLine());
+            string input = Console.ReadLine();
+
+            // Validate user input
+            if (!int.TryParse(input, out int choice))
+            {
+                Console.WriteLine("Invalid choice, please enter a number.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                continue;
+            }
 
             switch (choice)
             {
@@ -69,23 +94,14 @@ class Program
                     Console.WriteLine("Invalid choice, please try again.");
                     break;
             }
-        }
-    }
 
-    static void DisplayRecipe(Recipe recipe)
-    {
-        recipe.DisplayRecipe();
-    }
-
-    static void ListAllRecipes(List<Recipe> recipes)
-    {
-        recipes.Sort((r1, r2) => r1.Name.CompareTo(r2.Name));
-        foreach (var recipe in recipes)
-        {
-            Console.WriteLine(recipe.Name);
+            // Pause the console before clearing the screen
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }
+
 
 ////////////////////////////////////////////////////////////////////////////// 00 End Of File 00 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
