@@ -14,6 +14,51 @@ namespace RecipeAppPart1
             ingredients = new List<Ingredient>();
         }
 
+        public void EnterIngredientDetails(int ingredientNumber)
+        {
+            Console.Write($"Enter ingredient {ingredientNumber} name: ");
+            string ingredientName = Console.ReadLine();
+
+            double quantity;
+            while (true)
+            {
+                try
+                {
+                    Console.Write($"Enter ingredient {ingredientNumber} quantity: ");
+                    quantity = double.Parse(Console.ReadLine());
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+            }
+
+            Console.Write($"Enter ingredient {ingredientNumber} unit: ");
+            string unit = Console.ReadLine();
+
+            int calories;
+            while (true)
+            {
+                try
+                {
+                    Console.Write($"Enter ingredient {ingredientNumber} calories: ");
+                    calories = int.Parse(Console.ReadLine());
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+            }
+
+            Console.Write($"Enter ingredient {ingredientNumber} food group: ");
+            string foodGroup = Console.ReadLine();
+
+            ingredients.Add(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
+        }
+
+
         public void EnterDetails()
         {
             Console.Write("Enter recipe name: ");
@@ -23,22 +68,7 @@ namespace RecipeAppPart1
             int ingredientCount = int.Parse(Console.ReadLine());
             for (int i = 0; i < ingredientCount; i++)
             {
-                Console.Write($"Enter ingredient {i + 1} name: ");
-                string ingredientName = Console.ReadLine();
-
-                Console.Write($"Enter ingredient {i + 1} quantity: ");
-                double quantity = double.Parse(Console.ReadLine());
-
-                Console.Write($"Enter ingredient {i + 1} unit: ");
-                string unit = Console.ReadLine();
-
-                Console.Write($"Enter ingredient {i + 1} calories: ");
-                int calories = int.Parse(Console.ReadLine());
-
-                Console.Write($"Enter ingredient {i + 1} food group: ");
-                string foodGroup = Console.ReadLine();
-
-                ingredients.Add(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
+                EnterIngredientDetails(i + 1);
             }
 
             Console.Write("Enter the number of steps: ");
@@ -52,6 +82,7 @@ namespace RecipeAppPart1
 
             Console.WriteLine("Recipe details entered successfully.");
         }
+
 
         public void DisplayRecipe()
         {
@@ -91,7 +122,6 @@ namespace RecipeAppPart1
             return totalCalories;
         }
 
-        // Other methods (ScaleRecipe, ResetQuantities, ClearData) remain unchanged...
     }
 }
 
