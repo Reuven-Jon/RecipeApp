@@ -6,12 +6,12 @@ This is simple recipe management app written using c#.
 
 ##Instructions
 
-###Compiling the software 
+##Compiling the software 
 1. Clone this repository to your local machine.
 2. Open in the terminal or command prompt and navigate to the root directory of the project.
 3. Run the following command to compile the software.
 
-###Running the software
+##Running the software
 1. After compiling the software, run the following command to execute the application:
 2. Follow the on-screen instructions to interact with the application.
 - Enter "1" to enter in the details for the recipe
