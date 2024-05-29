@@ -50,22 +50,32 @@ namespace RecipeAppPart1
                         recipes.Add(recipe);
                         break;
                     case 2:
-                        // Ask the user for the name of the recipe to display
-                        Console.Write("Enter recipe name to display: ");
-                        string name = Console.ReadLine();
-                        // Find the recipe in the list of recipes
-                        Recipe selectedRecipe = recipes.Find(r => r.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-                        if (selectedRecipe != null)
+                        // Check if there are any recipes
+                        if (recipes.Count == 0)
                         {
-                            // If the recipe is found, display it
-                            selectedRecipe.DisplayRecipe();
+                            Console.WriteLine("No recipes found.");
+                            break;
                         }
-                        else
+
+                        // Display all the recipes
+                        Console.WriteLine("Available recipes:");
+                        for (int i = 0; i < recipes.Count; i++)
                         {
-                            // If the recipe is not found, display an error message
-                            Console.WriteLine("Recipe not found.");
+                            Console.WriteLine($"{i + 1}. {recipes[i].Name}");
                         }
+
+                        // Ask the user to select a recipe
+                        Console.Write("Enter the number of the recipe to display: ");
+                        if (!int.TryParse(Console.ReadLine(), out int recipeNumber) || recipeNumber < 1 || recipeNumber > recipes.Count)
+                        {
+                            Console.WriteLine("Invalid choice, please enter a valid number.");
+                            break;
+                        }
+
+                        // Display the selected recipe
+                        recipes[recipeNumber - 1].DisplayRecipe();
                         break;
+
                     case 3:
                         // Ask the user for the name of the recipe to scale
                         Console.Write("Enter recipe name to scale: ");
