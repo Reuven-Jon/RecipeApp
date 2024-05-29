@@ -146,7 +146,24 @@ namespace RecipeAppPart1
         }
 
     }
+    public void ResetQuantities()
+    {
+        foreach (var ingredient in ingredients)
+        {
+            ingredient.Quantity = ingredient.OriginalQuantity;
+        }
+    }
+
+    // Method to scale the recipe by a given factor.
+    public void ScaleRecipe(double scale)
+    {
+        foreach (var ingredient in ingredients)
+        {
+            ingredient.Quantity *= scale;
+        }
+    }
 }
+
 
 
 
