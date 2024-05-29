@@ -1,6 +1,6 @@
 https://github.com/Reuven-Jon/RecipeAppPart1 
 
-# RecipeAppPart1 
+# RecipeAppPOE
 
 This is simple recipe management app written using c#. 
 
