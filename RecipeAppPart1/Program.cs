@@ -7,13 +7,11 @@ class Program
 {
     delegate void DisplayRecipeDelegate(Recipe recipe);
 
-    // Method to display a recipe
     static void DisplayRecipe(Recipe recipe)
     {
         recipe.DisplayRecipe();
     }
 
-    // Method to list all recipes
     static void ListAllRecipes(List<Recipe> recipes)
     {
         foreach (var recipe in recipes)
@@ -40,7 +38,6 @@ class Program
             Console.Write("Enter your choice: ");
             string input = Console.ReadLine();
 
-            // Validate user input
             if (!int.TryParse(input, out int choice))
             {
                 Console.WriteLine("Invalid choice, please enter a number.");
@@ -71,22 +68,15 @@ class Program
                     }
                     break;
                 case 3:
-                    // List all recipes
                     ListAllRecipes(recipes);
-
-                    // Ask the user to select a recipe to scale
                     Console.Write("Enter the name of the recipe you want to scale: ");
                     string recipeName = Console.ReadLine();
-
-                    // Find the selected recipe
                     Recipe recipeToScale = recipes.Find(r => r.Name.Equals(recipeName, StringComparison.OrdinalIgnoreCase));
                     if (recipeToScale == null)
                     {
                         Console.WriteLine("Recipe not found.");
                         break;
                     }
-
-                    // Ask the user for a scaling factor
                     double scale;
                     while (true)
                     {
@@ -101,38 +91,26 @@ class Program
                             Console.WriteLine("Invalid input. Please enter a number.");
                         }
                     }
-
-                    // Scale the recipe
                     recipeToScale.ScaleRecipe(scale);
                     Console.WriteLine("Recipe scaled successfully.");
                     break;
-
                 case 4:
-                    // List all recipes
                     ListAllRecipes(recipes);
-
-                    // Ask the user to select a recipe to reset quantities
                     Console.Write("Enter the name of the recipe you want to reset quantities: ");
                     string resetRecipeName = Console.ReadLine();
-
-                    // Find the selected recipe
                     Recipe recipeToReset = recipes.Find(r => r.Name.Equals(resetRecipeName, StringComparison.OrdinalIgnoreCase));
                     if (recipeToReset == null)
                     {
                         Console.WriteLine("Recipe not found.");
                         break;
                     }
-
-                    // Reset quantities
                     recipeToReset.ResetQuantities();
                     Console.WriteLine("Quantities reset successfully.");
                     break;
                 case 5:
-                    // Clear all recipes
                     recipes = new List<Recipe>();
                     Console.WriteLine("All recipes cleared.");
                     break;
-
                 case 6:
                     ListAllRecipes(recipes);
                     break;
@@ -150,12 +128,12 @@ class Program
                     break;
             }
 
-            // Pause the console before clearing the screen
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
     }
 }
+
 
 
 ////////////////////////////////////////////////////////////////////////////// 00 End Of File 00 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
