@@ -18,6 +18,10 @@ namespace RecipeAppPart1
             // Initialize the ingredients list.
             ingredients = new List<Ingredient>();
         }
+        public void AddIngredient(Ingredient ingredient)
+        {
+            ingredients.Add(ingredient);
+        }
 
         // Method to enter details for a single ingredient.
         public void EnterIngredientDetails(int ingredientNumber)
