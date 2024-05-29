@@ -1,6 +1,7 @@
-﻿// Ingredient.cs
+﻿
 using System;
 
+//Reuven-Jon Kadalie ST10271460
 public class Ingredient : ICloneable
 {
     public string Name { get; private set; }
