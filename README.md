@@ -18,8 +18,7 @@ This is simple recipe management app written using c#.
 - Enter "2" to display the recipe
 - Enter "3" to scale the recipe
 - Enter "4" to reset quantities
-- Enter "5" to clear all data
-- Enter "6" to exit the application
+- Enter "5" to exit the application
 
 ## Contributing
 Contributiuon are welcome if you wish... Please fork this repository and submit a pull request with your changes. 
