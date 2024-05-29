@@ -145,21 +145,20 @@ namespace RecipeAppPart1
             return totalCalories;
         }
 
-    }
-    public void ResetQuantities()
-    {
-        foreach (var ingredient in ingredients)
+        public void ResetQuantities()
         {
-            ingredient.Quantity = ingredient.OriginalQuantity;
+            foreach (var ingredient in ingredients)
+            {
+                ingredient.Quantity = ingredient.OriginalQuantity;
+            }
         }
-    }
 
-    // Method to scale the recipe by a given factor.
-    public void ScaleRecipe(double scale)
-    {
-        foreach (var ingredient in ingredients)
+        public void ScaleRecipe(double scale)
         {
-            ingredient.Quantity *= scale;
+            foreach (var ingredient in ingredients)
+            {
+                ingredient.Quantity *= scale;
+            }
         }
     }
 }
