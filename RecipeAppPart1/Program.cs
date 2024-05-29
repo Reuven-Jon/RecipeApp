@@ -108,11 +108,31 @@ class Program
                     break;
 
                 case 4:
-                    // Reset Quantities logic here
+                    // List all recipes
+                    ListAllRecipes(recipes);
+
+                    // Ask the user to select a recipe to reset quantities
+                    Console.Write("Enter the name of the recipe you want to reset quantities: ");
+                    string resetRecipeName = Console.ReadLine();
+
+                    // Find the selected recipe
+                    Recipe recipeToReset = recipes.Find(r => r.Name.Equals(resetRecipeName, StringComparison.OrdinalIgnoreCase));
+                    if (recipeToReset == null)
+                    {
+                        Console.WriteLine("Recipe not found.");
+                        break;
+                    }
+
+                    // Reset quantities
+                    recipeToReset.ResetQuantities();
+                    Console.WriteLine("Quantities reset successfully.");
                     break;
                 case 5:
-                    // Clear Data logic here
+                    // Clear all recipes
+                    recipes = new List<Recipe>();
+                    Console.WriteLine("All recipes cleared.");
                     break;
+
                 case 6:
                     ListAllRecipes(recipes);
                     break;
