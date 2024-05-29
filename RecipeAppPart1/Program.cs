@@ -57,6 +57,9 @@ namespace RecipeAppPart1
                             break;
                         }
 
+                        // Sort the recipes in alphabetical order
+                        recipes.Sort((r1, r2) => r1.Name.CompareTo(r2.Name));
+
                         // Display all the recipes
                         Console.WriteLine("Available recipes:");
                         for (int i = 0; i < recipes.Count; i++)
@@ -75,6 +78,7 @@ namespace RecipeAppPart1
                         // Display the selected recipe
                         recipes[recipeNumber - 1].DisplayRecipe();
                         break;
+
 
                     case 3:
                         // Ask the user for the name of the recipe to scale
