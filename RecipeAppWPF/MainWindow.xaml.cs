@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using RecipeAppPart1; // Update to match your project's namespace
+using RecipeAppPart1; // Ensure this namespace correctly references where your Recipe and Ingredient classes are defined.
 
 namespace RecipeApp
 {
@@ -28,6 +27,7 @@ namespace RecipeApp
 
         private void DisplayRecipes()
         {
+            RecipesListView.ItemsSource = null;
             RecipesListView.ItemsSource = recipes;
         }
 
@@ -71,5 +71,3 @@ namespace RecipeApp
         }
     }
 }
-
-

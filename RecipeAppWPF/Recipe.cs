@@ -41,7 +41,7 @@ namespace RecipeAppPart1
         public static List<Recipe> FilterRecipes(string ingredientName, string foodGroup, int maxCalories)
         {
             return _recipes.Where(recipe =>
-                (string.IsNullOrEmpty(ingredientName) || recipe.ingredients.Any(ing => ing.Name.Contains(ingredientName, StringComparison.OrdinalIgnoreCase))) &&
+                (string.IsNullOrEmpty(ingredientName) || recipe.ingredients.Any(ing => ing.Name.IndexOf(ingredientName, StringComparison.OrdinalIgnoreCase) >= 0)) &&
                 (string.IsNullOrEmpty(foodGroup) || recipe.ingredients.Any(ing => ing.FoodGroup.Equals(foodGroup, StringComparison.OrdinalIgnoreCase))) &&
                 recipe.CalculateTotalCalories() <= maxCalories
             ).ToList();
@@ -57,9 +57,49 @@ namespace RecipeAppPart1
             return ingredients.Select(ing => $"{ing.Name}: {ing.FoodGroup}").ToList();
         }
 
-        internal void EnterDetails()
+        public void EnterDetails()
         {
-            throw new NotImplementedException();
+            // Prompt the user to enter the recipe name.
+            Console.Write("Enter recipe name: ");
+            Name = Console.ReadLine();
+
+            // Prompt the user to enter the number of ingredients.
+            Console.Write("Enter the number of ingredients: ");
+            int ingredientCount = int.Parse(Console.ReadLine());
+
+            // Enter details for each ingredient.
+            for (int i = 0; i < ingredientCount; i++)
+            {
+                EnterIngredientDetails(i + 1);
+            }
+
+            Console.WriteLine("Recipe details entered successfully.");
+        }
+
+        private void EnterIngredientDetails(int ingredientNumber)
+        {
+            // Prompt the user to enter the ingredient name.
+            Console.Write($"Enter ingredient {ingredientNumber} name: ");
+            string ingredientName = Console.ReadLine();
+
+            // Prompt the user to enter the ingredient quantity.
+            Console.Write($"Enter ingredient {ingredientNumber} quantity: ");
+            double quantity = double.Parse(Console.ReadLine());
+
+            // Prompt the user to enter the ingredient unit.
+            Console.Write($"Enter ingredient {ingredientNumber} unit: ");
+            string unit = Console.ReadLine();
+
+            // Prompt the user to enter the ingredient calories.
+            Console.Write($"Enter ingredient {ingredientNumber} calories: ");
+            int calories = int.Parse(Console.ReadLine());
+
+            // Prompt the user to enter the ingredient food group.
+            Console.Write($"Enter ingredient {ingredientNumber} food group: ");
+            string foodGroup = Console.ReadLine();
+
+            // Add the new ingredient to the ingredients list.
+            ingredients.Add(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
         }
     }
 }
