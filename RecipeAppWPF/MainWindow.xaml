@@ -8,7 +8,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="200"/>
-            <!-- Space for alternative visualization -->
         </Grid.RowDefinitions>
 
         <!-- Filter Controls -->
@@ -19,6 +18,10 @@
             </ComboBox>
             <TextBox x:Name="CaloriesFilter" Width="120" Margin="5" ToolTip="Max Calories"/>
             <Button Content="Filter" Click="Filter_Click" Margin="5"/>
+            <!-- Display Ingredients Button -->
+            <Button Content="Display Ingredients" Click="DisplayIngredients_Click" Margin="5"/>
+            <!-- Display Recipes Button -->
+            <Button Content="Display Recipes" Click="DisplayRecipes_Click" Margin="5"/>
         </StackPanel>
 
         <!-- Recipe List -->
@@ -32,9 +35,9 @@
         </ListView>
 
         <!-- Alternative Visualization Placeholder -->
-        <!-- Consider using other elements for visualization if not using LiveCharts -->
     </Grid>
 </Window>
+
 
 
 

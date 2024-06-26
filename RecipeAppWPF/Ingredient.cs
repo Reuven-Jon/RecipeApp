@@ -1,7 +1,7 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
-//Reuven-Jon Kadalie ST10271460
 public class Ingredient : ICloneable
 {
     public string Name { get; private set; }
@@ -10,6 +10,9 @@ public class Ingredient : ICloneable
     public string Unit { get; private set; }
     public int Calories { get; private set; }
     public string FoodGroup { get; private set; }
+
+    // Define the static list of ingredients
+    private static List<Ingredient> _ingredients = new List<Ingredient>();
 
     public Ingredient(string name, double quantity, string unit, int calories, string foodGroup)
     {
@@ -37,6 +40,18 @@ public class Ingredient : ICloneable
     public object Clone()
     {
         return new Ingredient(this);
+    }
+
+    public static List<Ingredient> GetAllIngredients()
+    {
+        // Initialize with sample data if empty
+        if (_ingredients.Count == 0)
+        {
+            _ingredients.Add(new Ingredient("Flour", 2, "cups", 100, "Grain"));
+            _ingredients.Add(new Ingredient("Sugar", 1, "cup", 770, "Sweetener"));
+            // Add more sample ingredients as needed
+        }
+        return _ingredients;
     }
 }
 
