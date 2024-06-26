@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using RecipeAppPart1; // Ensure this namespace correctly references where your Recipe and Ingredient classes are defined.
 
 namespace RecipeApp
@@ -14,7 +13,6 @@ namespace RecipeApp
         {
             InitializeComponent();
             recipes = Recipe.GetAllRecipes();
-            DisplayRecipes();
         }
 
         private void AddRecipe_Click(object sender, RoutedEventArgs e)
@@ -22,52 +20,72 @@ namespace RecipeApp
             Recipe recipe = new Recipe();
             recipe.EnterDetails();
             recipes.Add(recipe);
-            DisplayRecipes();
-        }
-
-        private void DisplayRecipes()
-        {
-            RecipesListView.ItemsSource = null;
-            RecipesListView.ItemsSource = recipes;
+            MessageBox.Show("Recipe added successfully!");
         }
 
         private void DisplayIngredients_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            if (recipes.Count == 0)
             {
-                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetIngredients()));
+                MessageBox.Show("No recipes available. Please add a recipe first.");
+                return;
+            }
+
+            Recipe selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetIngredients()), "Ingredients");
             }
         }
 
         private void DisplayCalories_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            if (recipes.Count == 0)
             {
-                MessageBox.Show($"Total Calories: {selectedRecipe.CalculateTotalCalories()}");
+                MessageBox.Show("No recipes available. Please add a recipe first.");
+                return;
+            }
+
+            Recipe selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                MessageBox.Show($"Total Calories: {selectedRecipe.CalculateTotalCalories()}", "Calories");
             }
         }
 
         private void DisplayFoodGroups_Click(object sender, RoutedEventArgs e)
         {
-            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            if (recipes.Count == 0)
             {
-                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetFoodGroups()));
+                MessageBox.Show("No recipes available. Please add a recipe first.");
+                return;
             }
-        }
 
-        private void FilterRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            string ingredientName = IngredientFilter.Text;
-            string foodGroup = ((ComboBoxItem)FoodGroupFilter.SelectedItem)?.Content.ToString();
-            int maxCalories = int.TryParse(CaloriesFilter.Text, out int calories) ? calories : int.MaxValue;
-
-            var filteredRecipes = Recipe.FilterRecipes(ingredientName, foodGroup, maxCalories);
-            RecipesListView.ItemsSource = filteredRecipes;
+            Recipe selectedRecipe = SelectRecipe();
+            if (selectedRecipe != null)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetFoodGroups()), "Food Groups");
+            }
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private Recipe SelectRecipe()
+        {
+            // Simple selection for demo purposes. Replace with actual selection logic as needed.
+            if (recipes.Count == 1)
+            {
+                return recipes[0];
+            }
+            else
+            {
+                // Example: Prompt user to select a recipe from a list
+                // For now, we return the first recipe
+                return recipes[0];
+            }
         }
     }
 }
