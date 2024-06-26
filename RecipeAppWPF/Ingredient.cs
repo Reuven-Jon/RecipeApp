@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+//Reuven-Jon Kadalie ST10271460
 namespace RecipeAppPart1
 {
     public class Ingredient : ICloneable
