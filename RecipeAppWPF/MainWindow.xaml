@@ -1,7 +1,20 @@
 ﻿<Window x:Class="RecipeApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Recipe Application" Height="600" Width="800">
+        Title="Recipe Application" Height="600" Width="800"
+        Background="Gray">
+    <!-- Set the background color of the window -->
+    <Window.Resources>
+        <!-- Define a style for the buttons -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Gray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -12,16 +25,16 @@
 
         <!-- Filter Controls -->
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBox x:Name="IngredientFilter" Width="120" Margin="5" ToolTip="Enter Ingredient"/>
-            <ComboBox x:Name="FoodGroupFilter" Width="120" Margin="5">
+            <TextBox x:Name="IngredientFilter" Width="120" ToolTip="Enter Ingredient"/>
+            <ComboBox x:Name="FoodGroupFilter" Width="120">
                 <!-- Populate ComboBox with Food Groups -->
             </ComboBox>
-            <TextBox x:Name="CaloriesFilter" Width="120" Margin="5" ToolTip="Max Calories"/>
-            <Button Content="Filter" Click="Filter_Click" Margin="5"/>
+            <TextBox x:Name="CaloriesFilter" Width="120" ToolTip="Max Calories"/>
+            <Button Content="Filter" Click="Filter_Click"/>
             <!-- Display Ingredients Button -->
-            <Button Content="Display Ingredients" Click="DisplayIngredients_Click" Margin="5"/>
+            <Button Content="Display Ingredients" Click="DisplayIngredients_Click"/>
             <!-- Display Recipes Button -->
-            <Button Content="Display Recipes" Click="DisplayRecipes_Click" Margin="5"/>
+            <Button Content="Display Recipes" Click="DisplayRecipes_Click"/>
         </StackPanel>
 
         <!-- Recipe List -->
@@ -37,6 +50,7 @@
         <!-- Alternative Visualization Placeholder -->
     </Grid>
 </Window>
+
 
 
 
