@@ -1,12 +1,40 @@
-﻿<Window x:Class="RecipeAppWPF.MainWindow"
+﻿<Window x:Class="RecipeApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RecipeAppWPF"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Recipe Application" Height="600" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <!-- Space for alternative visualization -->
+        </Grid.RowDefinitions>
+
+        <!-- Filter Controls -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox x:Name="IngredientFilter" Width="120" Margin="5" ToolTip="Enter Ingredient"/>
+            <ComboBox x:Name="FoodGroupFilter" Width="120" Margin="5">
+                <!-- Populate ComboBox with Food Groups -->
+            </ComboBox>
+            <TextBox x:Name="CaloriesFilter" Width="120" Margin="5" ToolTip="Max Calories"/>
+            <Button Content="Filter" Click="Filter_Click" Margin="5"/>
+        </StackPanel>
+
+        <!-- Recipe List -->
+        <ListView x:Name="RecipesListView" Grid.Row="1" SelectionMode="Extended">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                    <!-- Add other columns as needed -->
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Alternative Visualization Placeholder -->
+        <!-- Consider using other elements for visualization if not using LiveCharts -->
     </Grid>
 </Window>
+
+
+
