@@ -1,0 +1,33 @@
+﻿<Window x:Class="RecipeAppPart3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Recipe Application" Height="450" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*" />
+            <ColumnDefinition Width="320*" />
+            <ColumnDefinition Width="320*" />
+            <ColumnDefinition Width="2417*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="RecipeList" Grid.Column="0" SelectionMode="Extended"/>
+
+        <StackPanel Margin="10,7,0,13" Grid.ColumnSpan="2">
+            <TextBlock Text="Recipe Details" FontWeight="Bold"/>
+            <!-- Existing UI elements for displaying recipe details -->
+        </StackPanel>
+
+        <StackPanel Grid.Column="3" Margin="399,20,10,0">
+            <TextBlock Text="Menu Composition" FontWeight="Bold"/>
+            <lvc:PieChart x:Name="FoodGroupPieChart" LegendLocation="Right">
+                <lvc:PieChart.Series>
+                    <!-- Bind your pie chart series here -->
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+        </StackPanel>
+    </Grid>
+
+</Window>
+

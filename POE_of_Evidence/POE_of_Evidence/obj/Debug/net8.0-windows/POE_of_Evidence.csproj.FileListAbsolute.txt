@@ -1,0 +1,3 @@
+C:\Users\Reuven-Jon\OneDrive\Desktop\PROG6211\POE_of_Evidence\POE_of_Evidence\obj\Debug\net8.0-windows\POE_of_Evidence.csproj.AssemblyReference.cache
+C:\Users\Reuven-Jon\OneDrive\Desktop\PROG6211\POE_of_Evidence\POE_of_Evidence\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Reuven-Jon\OneDrive\Desktop\PROG6211\POE_of_Evidence\POE_of_Evidence\obj\Debug\net8.0-windows\POE_of_Evidence_MarkupCompile.cache
