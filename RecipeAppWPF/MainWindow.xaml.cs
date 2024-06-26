@@ -1,64 +1,75 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
-using RecipeAppPart1; // Ensure this namespace correctly references where your Recipe and Ingredient classes are defined.
+using System.Windows.Controls;
+using RecipeAppPart1; // Update to match your project's namespace
 
 namespace RecipeApp
 {
     public partial class MainWindow : Window
     {
+        private List<Recipe> recipes;
+
         public MainWindow()
         {
             InitializeComponent();
-            PopulateFoodGroups(); // Populate the ComboBox with food groups
-            DisplayIngredients(); // Optionally, load ingredients when the window loads
-            DisplayRecipes(); // Optionally, load recipes when the window loads
+            recipes = Recipe.GetAllRecipes();
+            DisplayRecipes();
         }
 
-        private void DisplayIngredients_Click(object sender, RoutedEventArgs e)
+        private void AddRecipe_Click(object sender, RoutedEventArgs e)
         {
-            DisplayIngredients();
-        }
-
-        private void DisplayIngredients()
-        {
-            var ingredients = Ingredient.GetAllIngredients();
-            RecipesListView.ItemsSource = ingredients;
+            Recipe recipe = new Recipe();
+            recipe.EnterDetails();
+            recipes.Add(recipe);
+            DisplayRecipes();
         }
 
         private void DisplayRecipes()
         {
-            var recipes = Recipe.GetAllRecipes();
             RecipesListView.ItemsSource = recipes;
         }
 
-        // Event handler for a button to refresh or display recipes
-        private void DisplayRecipes_Click(object sender, RoutedEventArgs e)
+        private void DisplayIngredients_Click(object sender, RoutedEventArgs e)
         {
-            DisplayRecipes();
+            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetIngredients()));
+            }
         }
 
-        // Event handler for filtering recipes based on criteria
+        private void DisplayCalories_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            {
+                MessageBox.Show($"Total Calories: {selectedRecipe.CalculateTotalCalories()}");
+            }
+        }
+
+        private void DisplayFoodGroups_Click(object sender, RoutedEventArgs e)
+        {
+            if (RecipesListView.SelectedItem is Recipe selectedRecipe)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetFoodGroups()));
+            }
+        }
+
         private void FilterRecipes_Click(object sender, RoutedEventArgs e)
         {
             string ingredientName = IngredientFilter.Text;
-            string foodGroup = FoodGroupFilter.SelectedItem as string; // Assuming this is correctly populated
-            int maxCalories = int.TryParse(CaloriesFilter.Text, out int calories) ? calories : 0;
+            string foodGroup = ((ComboBoxItem)FoodGroupFilter.SelectedItem)?.Content.ToString();
+            int maxCalories = int.TryParse(CaloriesFilter.Text, out int calories) ? calories : int.MaxValue;
 
             var filteredRecipes = Recipe.FilterRecipes(ingredientName, foodGroup, maxCalories);
             RecipesListView.ItemsSource = filteredRecipes;
         }
 
-        // Method to populate the FoodGroupFilter ComboBox with food groups
-        private void PopulateFoodGroups()
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            // Example food groups - adjust based on your application needs
-            var foodGroups = new List<string> { "Grain", "Vegetable", "Fruit", "Protein", "Dairy" };
-            FoodGroupFilter.ItemsSource = foodGroups;
+            Application.Current.Shutdown();
         }
     }
 }
-
-
-
 
 
