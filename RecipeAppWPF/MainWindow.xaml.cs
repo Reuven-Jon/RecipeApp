@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using RecipeAppPart1;
 using Microsoft.VisualBasic;
+using System.Windows.Media;
 
 namespace RecipeApp
 {
@@ -14,15 +14,33 @@ namespace RecipeApp
         private List<Recipe> recipes;
         private Recipe currentRecipe;
         private int ingredientCount = 0;
+        private WelcomeWindow welcomeWindow;
 
         public MainWindow()
         {
             InitializeComponent();
             recipes = Recipe.GetAllRecipes();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            welcomeWindow = new WelcomeWindow();
+            welcomeWindow.Show();
+        }
+
+        private void CloseWelcomeWindow()
+        {
+            if (welcomeWindow != null)
+            {
+                welcomeWindow.Close();
+                welcomeWindow = null;
+            }
         }
 
         private void AddRecipe_Checked(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
             currentRecipe = new Recipe();
             RecipeDetailsPanel.Visibility = Visibility.Visible;
             RecipeListBox.Visibility = Visibility.Collapsed;
@@ -40,7 +58,6 @@ namespace RecipeApp
         {
             ingredientCount++;
 
-            // Add Ingredient Name
             var ingredientNameLabel = new TextBlock
             {
                 Text = $"Enter name of Ingredient {ingredientCount}",
@@ -52,7 +69,6 @@ namespace RecipeApp
             IngredientsPanel.Children.Add(ingredientNameLabel);
             IngredientsPanel.Children.Add(ingredientNameTextBox);
 
-            // Add Ingredient Quantity
             var ingredientQuantityLabel = new TextBlock
             {
                 Text = $"Enter Quantity of Ingredient {ingredientCount}",
@@ -64,7 +80,6 @@ namespace RecipeApp
             IngredientsPanel.Children.Add(ingredientQuantityLabel);
             IngredientsPanel.Children.Add(ingredientQuantityTextBox);
 
-            // Add Ingredient Unit
             var ingredientUnitLabel = new TextBlock
             {
                 Text = $"Enter Unit of Ingredient {ingredientCount}",
@@ -76,7 +91,6 @@ namespace RecipeApp
             IngredientsPanel.Children.Add(ingredientUnitLabel);
             IngredientsPanel.Children.Add(ingredientUnitTextBox);
 
-            // Add Ingredient Calories
             var ingredientCaloriesLabel = new TextBlock
             {
                 Text = $"Enter Calories of Ingredient {ingredientCount}",
@@ -88,7 +102,6 @@ namespace RecipeApp
             IngredientsPanel.Children.Add(ingredientCaloriesLabel);
             IngredientsPanel.Children.Add(ingredientCaloriesTextBox);
 
-            // Add Ingredient Food Group
             var ingredientFoodGroupLabel = new TextBlock
             {
                 Text = $"Enter Food Group of Ingredient {ingredientCount}",
@@ -103,6 +116,8 @@ namespace RecipeApp
 
         private void SaveRecipeButton_Click(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
+
             if (currentRecipe != null && !string.IsNullOrEmpty(RecipeNameTextBox.Text))
             {
                 currentRecipe.Name = RecipeNameTextBox.Text;
@@ -115,24 +130,24 @@ namespace RecipeApp
                     var ingredientCaloriesTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 7];
                     var ingredientFoodGroupTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 9];
 
-                    if (ingredientNameTextBox != null && ingredientQuantityTextBox != null && ingredientUnitTextBox != null && ingredientCaloriesTextBox != null && ingredientFoodGroupTextBox != null)
-                    {
-                        if (double.TryParse(ingredientQuantityTextBox.Text, out double quantity) &&
-                            int.TryParse(ingredientCaloriesTextBox.Text, out int calories))
+                    if (ingredientNameTextBox != null && ingredientQuantityTextBox != null && ingredientUnitTextBox != null && ingredientCaloriesTextBox != null)
                         {
-                            currentRecipe.AddIngredient(new Ingredient(
-                                ingredientNameTextBox.Text,
-                                quantity,
-                                ingredientUnitTextBox.Text,
-                                calories,
-                                ingredientFoodGroupTextBox.Text));
+                            if (double.TryParse(ingredientQuantityTextBox.Text, out double quantity) &&
+                                int.TryParse(ingredientCaloriesTextBox.Text, out int calories))
+                            {
+                                currentRecipe.AddIngredient(new Ingredient(
+                                    ingredientNameTextBox.Text,
+                                    quantity,
+                                    ingredientUnitTextBox.Text,
+                                    calories,
+                                    ingredientFoodGroupTextBox.Text));
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Invalid quantity or calories for Ingredient {i + 1}. Please enter valid numbers.");
+                                return;
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show($"Invalid quantity or calories for Ingredient {i + 1}. Please enter valid numbers.");
-                            return;
-                        }
-                    }
                 }
 
                 recipes.Add(currentRecipe);
@@ -152,6 +167,7 @@ namespace RecipeApp
 
         private void DisplayIngredients_Checked(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
             RecipeListBox.Visibility = Visibility.Visible;
             RecipeDetailsPanel.Visibility = Visibility.Collapsed;
             RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
@@ -159,6 +175,7 @@ namespace RecipeApp
 
         private void DisplayCalories_Checked(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
             RecipeListBox.Visibility = Visibility.Visible;
             RecipeDetailsPanel.Visibility = Visibility.Collapsed;
             RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
@@ -166,12 +183,13 @@ namespace RecipeApp
 
         private void DisplayFoodGroups_Checked(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
             RecipeListBox.Visibility = Visibility.Visible;
             RecipeDetailsPanel.Visibility = Visibility.Collapsed;
             RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
         }
 
-        private void RecipeListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (RecipeListBox.SelectedIndex >= 0)
             {
@@ -194,7 +212,9 @@ namespace RecipeApp
 
         private void Exit_Checked(object sender, RoutedEventArgs e)
         {
+            CloseWelcomeWindow();
             Application.Current.Shutdown();
         }
     }
 }
+
