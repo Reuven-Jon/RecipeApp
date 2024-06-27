@@ -40,31 +40,31 @@ namespace RecipeApp
             ingredientCount++;
 
             // Add Ingredient Name
-            var ingredientNameLabel = new TextBlock { Text = $"Enter name of Ingredient {ingredientCount}" };
+            var ingredientNameLabel = new TextBlock { Text = $"Enter name of Ingredient {ingredientCount}", FontSize = 14, FontWeight = FontWeights.Bold };
             var ingredientNameTextBox = new TextBox { Name = $"IngredientNameTextBox{ingredientCount}", Width = 200, Margin = new Thickness(5) };
             IngredientsPanel.Children.Add(ingredientNameLabel);
             IngredientsPanel.Children.Add(ingredientNameTextBox);
 
             // Add Ingredient Quantity
-            var ingredientQuantityLabel = new TextBlock { Text = $"Enter Quantity of Ingredient {ingredientCount}" };
+            var ingredientQuantityLabel = new TextBlock { Text = $"Enter Quantity of Ingredient {ingredientCount}", FontSize = 14, FontWeight = FontWeights.Bold };
             var ingredientQuantityTextBox = new TextBox { Name = $"IngredientQuantityTextBox{ingredientCount}", Width = 200, Margin = new Thickness(5) };
             IngredientsPanel.Children.Add(ingredientQuantityLabel);
             IngredientsPanel.Children.Add(ingredientQuantityTextBox);
 
             // Add Ingredient Unit
-            var ingredientUnitLabel = new TextBlock { Text = $"Enter Unit of Ingredient {ingredientCount}" };
+            var ingredientUnitLabel = new TextBlock { Text = $"Enter Unit of Ingredient {ingredientCount}", FontSize = 14, FontWeight = FontWeights.Bold };
             var ingredientUnitTextBox = new TextBox { Name = $"IngredientUnitTextBox{ingredientCount}", Width = 200, Margin = new Thickness(5) };
             IngredientsPanel.Children.Add(ingredientUnitLabel);
             IngredientsPanel.Children.Add(ingredientUnitTextBox);
 
             // Add Ingredient Calories
-            var ingredientCaloriesLabel = new TextBlock { Text = $"Enter Calories of Ingredient {ingredientCount}" };
+            var ingredientCaloriesLabel = new TextBlock { Text = $"Enter Calories of Ingredient {ingredientCount}", FontSize = 14, FontWeight = FontWeights.Bold };
             var ingredientCaloriesTextBox = new TextBox { Name = $"IngredientCaloriesTextBox{ingredientCount}", Width = 200, Margin = new Thickness(5) };
             IngredientsPanel.Children.Add(ingredientCaloriesLabel);
             IngredientsPanel.Children.Add(ingredientCaloriesTextBox);
 
             // Add Ingredient Food Group
-            var ingredientFoodGroupLabel = new TextBlock { Text = $"Enter Food Group of Ingredient {ingredientCount}" };
+            var ingredientFoodGroupLabel = new TextBlock { Text = $"Enter Food Group of Ingredient {ingredientCount}", FontSize = 14, FontWeight = FontWeights.Bold };
             var ingredientFoodGroupTextBox = new TextBox { Name = $"IngredientFoodGroupTextBox{ingredientCount}", Width = 200, Margin = new Thickness(5) };
             IngredientsPanel.Children.Add(ingredientFoodGroupLabel);
             IngredientsPanel.Children.Add(ingredientFoodGroupTextBox);
@@ -167,3 +167,4 @@ namespace RecipeApp
         }
     }
 }
+
