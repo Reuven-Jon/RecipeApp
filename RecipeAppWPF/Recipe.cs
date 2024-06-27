@@ -7,7 +7,7 @@ namespace RecipeAppPart1
     public class Recipe
     {
         private List<Ingredient> ingredients;
-        public string Name { get; private set; }
+        public string Name { get; set; } // Changed from private set to public set
 
         private static List<Recipe> _recipes = new List<Recipe>();
 
@@ -114,3 +114,4 @@ namespace RecipeAppPart1
         }
     }
 }
+

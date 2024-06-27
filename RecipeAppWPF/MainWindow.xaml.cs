@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using RecipeAppPart1; // Ensure this namespace matches the one in your RecipeAppPart1 project
+using RecipeAppPart1;
 using Microsoft.VisualBasic;
-using LiveCharts.Wpf.Charts.Base;
 
 namespace RecipeApp
 {
@@ -22,13 +21,8 @@ namespace RecipeApp
         private void AddRecipe_Checked(object sender, RoutedEventArgs e)
         {
             currentRecipe = new Recipe();
-            RecipeNameTextBox.Visibility = Visibility.Visible;
-            IngredientNameTextBox.Visibility = Visibility.Visible;
-            IngredientQuantityTextBox.Visibility = Visibility.Visible;
-            IngredientUnitTextBox.Visibility = Visibility.Visible;
-            IngredientCaloriesTextBox.Visibility = Visibility.Visible;
-            IngredientFoodGroupTextBox.Visibility = Visibility.Visible;
-            AddIngredientButton.Visibility = Visibility.Visible;
+            RecipeDetailsPanel.Visibility = Visibility.Visible;
+            RecipeListBox.Visibility = Visibility.Collapsed;
         }
 
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
@@ -59,30 +53,62 @@ namespace RecipeApp
             }
         }
 
+        private void SaveRecipeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentRecipe != null && !string.IsNullOrEmpty(RecipeNameTextBox.Text))
+            {
+                currentRecipe.Name = RecipeNameTextBox.Text;
+                recipes.Add(currentRecipe);
+                MessageBox.Show("Recipe saved successfully!");
+
+                RecipeNameTextBox.Clear();
+                currentRecipe = new Recipe();
+            }
+            else
+            {
+                MessageBox.Show("Please enter a recipe name.");
+            }
+        }
+
         private void DisplayIngredients_Checked(object sender, RoutedEventArgs e)
         {
-            Recipe selectedRecipe = SelectRecipe();
-            if (selectedRecipe != null)
-            {
-                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetIngredients()), "Ingredients");
-            }
+            RecipeListBox.Visibility = Visibility.Visible;
+            RecipeDetailsPanel.Visibility = Visibility.Collapsed;
+            RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
         }
 
         private void DisplayCalories_Checked(object sender, RoutedEventArgs e)
         {
-            Recipe selectedRecipe = SelectRecipe();
-            if (selectedRecipe != null)
-            {
-                MessageBox.Show($"Total Calories: {selectedRecipe.CalculateTotalCalories()}", "Calories");
-            }
+            RecipeListBox.Visibility = Visibility.Visible;
+            RecipeDetailsPanel.Visibility = Visibility.Collapsed;
+            RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
         }
 
         private void DisplayFoodGroups_Checked(object sender, RoutedEventArgs e)
         {
-            Recipe selectedRecipe = SelectRecipe();
-            if (selectedRecipe != null)
+            RecipeListBox.Visibility = Visibility.Visible;
+            RecipeDetailsPanel.Visibility = Visibility.Collapsed;
+            RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
+        }
+
+        private void RecipeListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (RecipeListBox.SelectedIndex >= 0)
             {
-                MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetFoodGroups()), "Food Groups");
+                Recipe selectedRecipe = recipes[RecipeListBox.SelectedIndex];
+
+                if (DisplayIngredients.IsChecked == true)
+                {
+                    MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetIngredients()), "Ingredients");
+                }
+                else if (DisplayCalories.IsChecked == true)
+                {
+                    MessageBox.Show($"Total Calories: {selectedRecipe.CalculateTotalCalories()}", "Calories");
+                }
+                else if (DisplayFoodGroups.IsChecked == true)
+                {
+                    MessageBox.Show(string.Join(Environment.NewLine, selectedRecipe.GetFoodGroups()), "Food Groups");
+                }
             }
         }
 
@@ -90,37 +116,6 @@ namespace RecipeApp
         {
             Application.Current.Shutdown();
         }
-
-        private Recipe SelectRecipe()
-        {
-            if (recipes.Count == 0)
-            {
-                MessageBox.Show("No recipes available. Please add a recipe first.");
-                return null;
-            }
-            else if (recipes.Count == 1)
-            {
-                return recipes[0];
-            }
-            else
-            {
-                string recipeNames = string.Join(Environment.NewLine, recipes.Select((r, i) => $"{i + 1}. {r.Name}"));
-
-
-                string input = Interaction.InputBox($"Select a recipe by entering the number:\n{recipeNames}", "Select Recipe", "1");
-
-                if (int.TryParse(input, out int index) && index > 0 && index <= recipes.Count)
-                {
-                    return recipes[index - 1];
-                }
-                else
-                {
-                    MessageBox.Show("Invalid selection. Please try again.");
-                    return null;
-                }
-            }
-        }
     }
 }
-
 
