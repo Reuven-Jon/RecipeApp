@@ -53,21 +53,26 @@
             <RadioButton Content="Exit" GroupName="Actions" Checked="Exit_Checked"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="10" Visibility="Collapsed" x:Name="RecipeDetailsPanel">
-            <TextBlock Text="Enter Recipe Name" />
-            <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5"/>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20" HorizontalAlignment="Center">
+                <StackPanel x:Name="RecipeDetailsPanel" Visibility="Collapsed">
+                    <TextBlock Text="Enter Recipe Name" FontSize="16" FontWeight="Bold"/>
+                    <TextBox x:Name="RecipeNameTextBox" Width="300" Height="30" Margin="10"/>
 
-            <StackPanel x:Name="IngredientsPanel" Margin="10">
-                <!-- Ingredient input fields will be added here dynamically -->
+                    <StackPanel x:Name="IngredientsPanel" Margin="10">
+                        <!-- Ingredient input fields will be added here dynamically -->
+                    </StackPanel>
+
+                    <Button x:Name="AddIngredientButton" Content="Add Ingredient" Click="AddIngredientButton_Click" Width="200" Height="30" Margin="10"/>
+                    <Button x:Name="SaveRecipeButton" Content="Save Recipe" Click="SaveRecipeButton_Click" Width="200" Height="30" Margin="10"/>
+                </StackPanel>
+
+                <ListBox x:Name="RecipeListBox" Visibility="Collapsed" SelectionChanged="RecipeListBox_SelectionChanged" Width="400" Height="300" Margin="10"/>
             </StackPanel>
-
-            <Button x:Name="AddIngredientButton" Content="Add Ingredient" Click="AddIngredientButton_Click" Width="200" Margin="5"/>
-            <Button x:Name="SaveRecipeButton" Content="Save Recipe" Click="SaveRecipeButton_Click" Width="200" Margin="5"/>
-        </StackPanel>
-
-        <ListBox x:Name="RecipeListBox" Grid.Row="1" Margin="10" Visibility="Collapsed" SelectionChanged="RecipeListBox_SelectionChanged"/>
+        </ScrollViewer>
     </Grid>
 </Window>
+
 
 
 
