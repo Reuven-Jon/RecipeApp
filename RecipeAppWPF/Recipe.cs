@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-//Reuven-Jon Kadalie ST10271460
 namespace RecipeAppPart1
 {
     public class Recipe
@@ -60,15 +59,16 @@ namespace RecipeAppPart1
 
         public void EnterDetails()
         {
-            // Prompt the user to enter the recipe name.
             Console.Write("Enter recipe name: ");
             Name = Console.ReadLine();
 
-            // Prompt the user to enter the number of ingredients.
             Console.Write("Enter the number of ingredients: ");
-            int ingredientCount = int.Parse(Console.ReadLine());
+            int ingredientCount;
+            while (!int.TryParse(Console.ReadLine(), out ingredientCount) || ingredientCount <= 0)
+            {
+                Console.WriteLine("Invalid number. Please enter a positive number.");
+            }
 
-            // Enter details for each ingredient.
             for (int i = 0; i < ingredientCount; i++)
             {
                 EnterIngredientDetails(i + 1);
@@ -79,27 +79,37 @@ namespace RecipeAppPart1
 
         private void EnterIngredientDetails(int ingredientNumber)
         {
-            // Prompt the user to enter the ingredient name.
             Console.Write($"Enter ingredient {ingredientNumber} name: ");
             string ingredientName = Console.ReadLine();
 
-            // Prompt the user to enter the ingredient quantity.
-            Console.Write($"Enter ingredient {ingredientNumber} quantity: ");
-            double quantity = double.Parse(Console.ReadLine());
+            double quantity;
+            while (true)
+            {
+                Console.Write($"Enter ingredient {ingredientNumber} quantity: ");
+                if (double.TryParse(Console.ReadLine(), out quantity) && quantity > 0 && quantity < 1000)
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid quantity. Please enter a number greater than 0 and less than 1000.");
+            }
 
-            // Prompt the user to enter the ingredient unit.
             Console.Write($"Enter ingredient {ingredientNumber} unit: ");
             string unit = Console.ReadLine();
 
-            // Prompt the user to enter the ingredient calories.
-            Console.Write($"Enter ingredient {ingredientNumber} calories: ");
-            int calories = int.Parse(Console.ReadLine());
+            int calories;
+            while (true)
+            {
+                Console.Write($"Enter ingredient {ingredientNumber} calories: ");
+                if (int.TryParse(Console.ReadLine(), out calories) && calories > 0 && calories < 1000)
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid calories. Please enter a number greater than 0 and less than 1000.");
+            }
 
-            // Prompt the user to enter the ingredient food group.
             Console.Write($"Enter ingredient {ingredientNumber} food group: ");
             string foodGroup = Console.ReadLine();
 
-            // Add the new ingredient to the ingredients list.
             ingredients.Add(new Ingredient(ingredientName, quantity, unit, calories, foodGroup));
         }
     }

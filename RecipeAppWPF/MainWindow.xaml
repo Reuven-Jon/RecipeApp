@@ -9,7 +9,6 @@
     <Window.Resources>
         <Style TargetType="RadioButton">
             <Setter Property="Background" Value="#4CAF50"/>
-            <!-- Green background -->
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="10"/>
@@ -35,26 +34,34 @@
             <Style.Triggers>
                 <Trigger Property="IsChecked" Value="True">
                     <Setter Property="Background" Value="#45A049"/>
-                    <!-- Darker green when checked -->
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Center the buttons in the middle of the screen -->
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Background="#80000000">
-            <!-- Slightly transparent background for better readability -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Background="#80000000">
             <RadioButton Content="Enter Recipe Details" GroupName="Actions" Checked="AddRecipe_Checked"/>
             <RadioButton Content="Display Ingredients" GroupName="Actions" Checked="DisplayIngredients_Checked"/>
             <RadioButton Content="Display Calories" GroupName="Actions" Checked="DisplayCalories_Checked"/>
             <RadioButton Content="Display Food Groups" GroupName="Actions" Checked="DisplayFoodGroups_Checked"/>
             <RadioButton Content="Exit" GroupName="Actions" Checked="Exit_Checked"/>
         </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Recipe Name"/>
+            <TextBox x:Name="IngredientNameTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Ingredient Name"/>
+            <TextBox x:Name="IngredientQuantityTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Quantity"/>
+            <TextBox x:Name="IngredientUnitTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Unit"/>
+            <TextBox x:Name="IngredientCaloriesTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Calories"/>
+            <TextBox x:Name="IngredientFoodGroupTextBox" Width="200" Margin="5" Visibility="Collapsed" Text="Food Group"/>
+            <Button x:Name="AddIngredientButton" Content="Add Ingredient" Click="AddIngredientButton_Click" Width="200" Margin="5" Visibility="Collapsed"/>
+        </StackPanel>
     </Grid>
 </Window>
-
-
-
-
 
