@@ -54,18 +54,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Margin="10" Visibility="Collapsed" x:Name="RecipeDetailsPanel">
-            <TextBlock Text="Recipe Name"/>
+            <TextBlock Text="Enter Recipe Name" />
             <TextBox x:Name="RecipeNameTextBox" Width="200" Margin="5"/>
-            <TextBlock Text="Ingredient Name"/>
-            <TextBox x:Name="IngredientNameTextBox" Width="200" Margin="5"/>
-            <TextBlock Text="Quantity"/>
-            <TextBox x:Name="IngredientQuantityTextBox" Width="200" Margin="5"/>
-            <TextBlock Text="Unit"/>
-            <TextBox x:Name="IngredientUnitTextBox" Width="200" Margin="5"/>
-            <TextBlock Text="Calories"/>
-            <TextBox x:Name="IngredientCaloriesTextBox" Width="200" Margin="5"/>
-            <TextBlock Text="Food Group"/>
-            <TextBox x:Name="IngredientFoodGroupTextBox" Width="200" Margin="5"/>
+
+            <StackPanel x:Name="IngredientsPanel" Margin="10">
+                <!-- Ingredient input fields will be added here dynamically -->
+            </StackPanel>
+
             <Button x:Name="AddIngredientButton" Content="Add Ingredient" Click="AddIngredientButton_Click" Width="200" Margin="5"/>
             <Button x:Name="SaveRecipeButton" Content="Save Recipe" Click="SaveRecipeButton_Click" Width="200" Margin="5"/>
         </StackPanel>
@@ -73,6 +68,7 @@
         <ListBox x:Name="RecipeListBox" Grid.Row="1" Margin="10" Visibility="Collapsed" SelectionChanged="RecipeListBox_SelectionChanged"/>
     </Grid>
 </Window>
+
 
 
 
