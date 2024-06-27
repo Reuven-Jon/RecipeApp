@@ -1,12 +1,21 @@
 ﻿<Window x:Class="RecipeApp.WelcomeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Welcome" Height="200" Width="553"
+        Title="Welcome" Height="200" Width="500"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
-    <Border Background="#80000000" CornerRadius="10" Padding="20">
+        Background="Transparent"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Storyboard x:Key="FadeInStoryboard">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
+        </Storyboard>
+    </Window.Resources>
+    <Border Background="#80000000" CornerRadius="10" Padding="20" Opacity="0">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0"/>
+        </Border.Effect>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Welcome to Reuven-Jon's Recipe App"
                        FontSize="28"
@@ -22,5 +31,4 @@
         </StackPanel>
     </Border>
 </Window>
-
 
