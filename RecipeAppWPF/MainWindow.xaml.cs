@@ -51,6 +51,8 @@ namespace RecipeApp
 
         private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
         {
+            AddIngredientToRecipe();
+            ClearIngredientInputFields();
             AddIngredientInputFields();
         }
 
@@ -65,7 +67,7 @@ namespace RecipeApp
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Blue
             };
-            var ingredientNameTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10) };
+            var ingredientNameTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10), Name = $"IngredientNameTextBox{ingredientCount}" };
             IngredientsPanel.Children.Add(ingredientNameLabel);
             IngredientsPanel.Children.Add(ingredientNameTextBox);
 
@@ -76,7 +78,7 @@ namespace RecipeApp
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Blue
             };
-            var ingredientQuantityTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10) };
+            var ingredientQuantityTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10), Name = $"IngredientQuantityTextBox{ingredientCount}" };
             IngredientsPanel.Children.Add(ingredientQuantityLabel);
             IngredientsPanel.Children.Add(ingredientQuantityTextBox);
 
@@ -87,7 +89,7 @@ namespace RecipeApp
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Blue
             };
-            var ingredientUnitTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10) };
+            var ingredientUnitTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10), Name = $"IngredientUnitTextBox{ingredientCount}" };
             IngredientsPanel.Children.Add(ingredientUnitLabel);
             IngredientsPanel.Children.Add(ingredientUnitTextBox);
 
@@ -98,7 +100,7 @@ namespace RecipeApp
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Blue
             };
-            var ingredientCaloriesTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10) };
+            var ingredientCaloriesTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10), Name = $"IngredientCaloriesTextBox{ingredientCount}" };
             IngredientsPanel.Children.Add(ingredientCaloriesLabel);
             IngredientsPanel.Children.Add(ingredientCaloriesTextBox);
 
@@ -109,9 +111,44 @@ namespace RecipeApp
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.Blue
             };
-            var ingredientFoodGroupTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10) };
+            var ingredientFoodGroupTextBox = new TextBox { Width = 300, Height = 30, Margin = new Thickness(10), Name = $"IngredientFoodGroupTextBox{ingredientCount}" };
             IngredientsPanel.Children.Add(ingredientFoodGroupLabel);
             IngredientsPanel.Children.Add(ingredientFoodGroupTextBox);
+        }
+
+        private void AddIngredientToRecipe()
+        {
+            if (currentRecipe != null)
+            {
+                var ingredientNameTextBox = (TextBox)FindName($"IngredientNameTextBox{ingredientCount}");
+                var ingredientQuantityTextBox = (TextBox)FindName($"IngredientQuantityTextBox{ingredientCount}");
+                var ingredientUnitTextBox = (TextBox)FindName($"IngredientUnitTextBox{ingredientCount}");
+                var ingredientCaloriesTextBox = (TextBox)FindName($"IngredientCaloriesTextBox{ingredientCount}");
+                var ingredientFoodGroupTextBox = (TextBox)FindName($"IngredientFoodGroupTextBox{ingredientCount}");
+
+                if (ingredientNameTextBox != null && ingredientQuantityTextBox != null && ingredientUnitTextBox != null && ingredientCaloriesTextBox != null && ingredientFoodGroupTextBox != null)
+                {
+                    if (double.TryParse(ingredientQuantityTextBox.Text, out double quantity) &&
+                        int.TryParse(ingredientCaloriesTextBox.Text, out int calories))
+                    {
+                        currentRecipe.AddIngredient(new Ingredient(
+                            ingredientNameTextBox.Text,
+                            quantity,
+                            ingredientUnitTextBox.Text,
+                            calories,
+                            ingredientFoodGroupTextBox.Text));
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Invalid quantity or calories for Ingredient {ingredientCount}. Please enter valid numbers.");
+                    }
+                }
+            }
+        }
+
+        private void ClearIngredientInputFields()
+        {
+            IngredientsPanel.Children.Clear();
         }
 
         private void SaveRecipeButton_Click(object sender, RoutedEventArgs e)
@@ -122,32 +159,9 @@ namespace RecipeApp
             {
                 currentRecipe.Name = RecipeNameTextBox.Text;
 
-                for (int i = 0; i < ingredientCount; i++)
+                for (int i = 1; i <= ingredientCount; i++)
                 {
-                    var ingredientNameTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 1];
-                    var ingredientQuantityTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 3];
-                    var ingredientUnitTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 5];
-                    var ingredientCaloriesTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 7];
-                    var ingredientFoodGroupTextBox = (TextBox)IngredientsPanel.Children[i * 10 + 9];
-
-                    if (ingredientNameTextBox != null && ingredientQuantityTextBox != null && ingredientUnitTextBox != null && ingredientCaloriesTextBox != null)
-                        {
-                            if (double.TryParse(ingredientQuantityTextBox.Text, out double quantity) &&
-                                int.TryParse(ingredientCaloriesTextBox.Text, out int calories))
-                            {
-                                currentRecipe.AddIngredient(new Ingredient(
-                                    ingredientNameTextBox.Text,
-                                    quantity,
-                                    ingredientUnitTextBox.Text,
-                                    calories,
-                                    ingredientFoodGroupTextBox.Text));
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Invalid quantity or calories for Ingredient {i + 1}. Please enter valid numbers.");
-                                return;
-                            }
-                        }
+                    AddIngredientToRecipe();
                 }
 
                 recipes.Add(currentRecipe);
@@ -189,7 +203,7 @@ namespace RecipeApp
             RecipeListBox.ItemsSource = recipes.Select(r => r.Name).ToList();
         }
 
-        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RecipeListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (RecipeListBox.SelectedIndex >= 0)
             {
@@ -217,4 +231,6 @@ namespace RecipeApp
         }
     }
 }
+
+
 

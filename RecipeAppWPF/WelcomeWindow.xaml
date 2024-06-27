@@ -9,10 +9,12 @@
         Loaded="Window_Loaded">
     <Window.Resources>
         <Storyboard x:Key="FadeInStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="WelcomeBorder" 
+                             Storyboard.TargetProperty="Opacity" 
+                             From="0" To="1" Duration="0:0:2"/>
         </Storyboard>
     </Window.Resources>
-    <Border Background="#80000000" CornerRadius="10" Padding="20" Opacity="0">
+    <Border x:Name="WelcomeBorder" Background="#80000000" CornerRadius="10" Padding="20" Opacity="0">
         <Border.Effect>
             <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0"/>
         </Border.Effect>
