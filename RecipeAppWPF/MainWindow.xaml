@@ -6,7 +6,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="ClearType">
     <Window.Background>
-        <ImageBrush ImageSource="https://img.freepik.com/free-photo/flat-lay-food-ingredients-with-recipe-veggies_23-2148834745.jpg" 
+        <ImageBrush ImageSource="https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?cs=srgb&amp;dl=pexels-ella-olsson-572949-1640774.jpg&amp;fm=jpg" 
                     RenderOptions.BitmapScalingMode="HighQuality"/>
     </Window.Background>
     <Window.Resources>
@@ -96,4 +96,3 @@
         </ScrollViewer>
     </Grid>
 </Window>
-
